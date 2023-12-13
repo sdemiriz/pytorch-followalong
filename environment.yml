@@ -1,0 +1,11 @@
+name: pytorch-followalong
+channels:
+- conda-forge
+- pytorch
+dependencies:
+- numpy
+- pytorch
+- pytorch-cuda=12.1
+- torchaudio
+- torchvision
+
