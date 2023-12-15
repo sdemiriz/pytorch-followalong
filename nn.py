@@ -36,3 +36,14 @@ class Net(nn.Module):
 
 net = Net()
 print(net)
+
+params = list(net.parameters())
+print(len(params))
+print(params[0].size())
+
+input = torch.randn(1, 1, 32, 32)
+out = net(input)
+print(out)
+
+net.zero_grad()
+out.backward(torch.randn(1, 10))
