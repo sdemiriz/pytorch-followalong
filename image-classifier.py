@@ -78,3 +78,27 @@ net = Net()
 # Define Loss function and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+
+# Train network
+for epoch in range(2):
+    running_loss = 0.0
+    for i, data in enumerate(trainloader, 0):
+        # Get inputs and labels from data
+        inputs, labels = data
+
+        # zero the parameter gradients
+        optimizer.zero_grad()
+
+        # SGD, backpropagate, optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        # Print stats
+        running_loss += loss.item()
+        if i % 2000 == 1999:
+            print(f"[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}")
+            running_loss = 0.0
+
+print("Finished Training")
