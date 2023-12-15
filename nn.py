@@ -37,10 +37,15 @@ class Net(nn.Module):
 net = Net()
 print(net)
 
+# Parameters of the network
 params = list(net.parameters())
-print(len(params))
-print(params[0].size())
 
+# List all parameters
+for p in params:
+    print(p.size())
+print("\n")
+
+# Trying a random 32x32 input
 input = torch.randn(1, 1, 32, 32)
 out = net(input)
 print(out)
