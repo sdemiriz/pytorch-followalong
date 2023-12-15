@@ -3,6 +3,7 @@ import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
+import torch.optim as optim
 
 # ToTensor imports image into a torch Tensor
 # Normalize will normalize each channel RGB to values between -1,1
@@ -73,3 +74,7 @@ class Net(nn.Module):
 
 
 net = Net()
+
+# Define Loss function and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
