@@ -129,3 +129,25 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
 
 print(f"Accuracy of network on the 10000 test images: {100 * correct // total} %")
+
+# Counts for predictions
+correct_pred = {classname: 0 for classname in classes}
+total_pred = {classname: 0 for classname in classes}
+
+# Not training
+with torch.no_grad():
+    for data in testloader:
+        images, labels = data
+        output = net(images)
+        _, predictions = torch.max(output, 1)
+
+        # Get correct predictions for each class
+        for label, prediction in zip(labels, predictions):
+            if label == prediction:
+                correct_pred[classes[label]] += 1
+            total_pred[classes[label]] += 1
+
+# Print accuracy per class
+for classname, correct_count in correct_pred.items():
+    accuracy = 100 * float(correct_count) / total_pred[classname]
+    print(f"Accuracy for class: {classname:5s} is {accuracy:.1f} %")
