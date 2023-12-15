@@ -48,7 +48,20 @@ print("\n")
 # Trying a random 32x32 input
 input = torch.randn(1, 1, 32, 32)
 out = net(input)
-print(out)
+print(input.size(), "\n", out, "\n")
 
+# Clear gradients of all parameters and backpropagate with random gradients
 net.zero_grad()
 out.backward(torch.randn(1, 10))
+
+# Compute loss
+output = net(input)
+print(f"output: {output}")
+target = torch.randn(10)  # dummy target
+target = target.view(1, -1)  # make target same shape as output
+print(f"target: {target}")
+criterion = nn.MSELoss()
+print(f"criterion: {criterion}")
+
+loss = criterion(output, target)
+print(f"loss: {loss}")
