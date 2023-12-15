@@ -65,3 +65,14 @@ print(f"criterion: {criterion}")
 
 loss = criterion(output, target)
 print(f"loss: {loss}")
+
+import torch.optim as optim
+
+# create optimizer
+optimizer = optim.SGD(net.parameters(), lr=0.01)
+
+optimizer.zero_grad()
+output = net(input)
+loss = criterion(output, target)
+loss.backward()
+optimizer.step()
